@@ -1,3 +1,11 @@
+"""
+BTree used as solution tool for the following scenario:
+    -   retrieve strings from command line in the form supervisor -> employee
+    -   each supervisor can have max 2 children nodes
+    -   an employee can be a supervisor at the same time
+    -   at the end is required to print the hierarchy structure of the company
+"""
+
 class Person(object):
     def __init__(self, priority, name):
         self.priority = priority
