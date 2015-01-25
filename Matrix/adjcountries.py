@@ -1,4 +1,4 @@
-def fill_map(A, S, col_num, row_num, numb):
+def fill_map(A, S, col_num, row_num, numb, prov):
 
     #check if the square A[i][j] has one of its neighbour with the same value,
     #   if this is verified =>
@@ -12,18 +12,22 @@ def fill_map(A, S, col_num, row_num, numb):
         return
     else:
         S[row_num][col_num] = 1
-        #N
-        if row_num > 0:
-            fill_map(A,S,col_num, row_num -1, numb)
-        #E
-        if col_num < M - 1:
-            fill_map(A,S,col_num+1, row_num, numb)
-        #S
-        if row_num < N -1:
-            fill_map(A, S, col_num, row_num+1, numb)
-        #W
-        if col_num > 0:
-            fill_map(A,S,col_num -1, row_num, numb)
+        if prov != 2:
+            #N
+            if row_num > 0:
+                fill_map(A,S,col_num, row_num -1, numb, 0)
+        if prov != 3:
+            #E
+            if col_num < M - 1:
+                fill_map(A,S,col_num+1, row_num, numb, 1)
+        if prov !=  0:
+            #S
+            if row_num < N -1:
+                fill_map(A, S, col_num, row_num+1, numb, 2)
+        if prov != 1:
+            #W
+            if col_num > 0:
+                fill_map(A,S,col_num -1, row_num, numb, 3)
 
 
 # find number of adjacent squares
@@ -41,7 +45,9 @@ def solution(A):
                 pass
             else:
                 total_countries += 1
-                fill_map(A, S, j, i, A[i][j]);
+                fill_map(A, S, j, i, A[i][j], -1);
 
     return total_countries
 
+A = [[5,4,4], [4,3,4], [3,2,4], [2,2,2], [3,3,4], [1,4,4], [4,1,1]]
+print solution(A)
