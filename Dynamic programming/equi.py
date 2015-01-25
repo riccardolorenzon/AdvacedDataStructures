@@ -8,6 +8,7 @@ def get_prefix_array(A):
         last_value = S[i]
     return S
 
+#Find an index in an array such that its prefix sum equals its suffix sum.
 def solution(A):
 
     n = len(A)
