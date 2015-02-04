@@ -5,7 +5,7 @@ class DisjointSet(object):
         :param n:
         :return:
         '''
-        self.id = [] * n
+        self.id = [0] * n
         for i in xrange(0,n):
             self.id[i] = i
 
@@ -22,7 +22,7 @@ class DisjointSet(object):
     def show(self):
         out = ""
         for i in xrange(0, len(self.id)):
-            out += self.id[i]
+            out += str(self.id[i])
             if i < len(self.id) -1:
                 out += ' '
         print out
