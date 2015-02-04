@@ -1,30 +1,53 @@
 class DisjointSet(object):
+    def __init__(self, n):
+        '''
+        initialize the array as a singleton array
+        :param n:
+        :return:
+        '''
+        self.id = [] * n
+        for i in xrange(0,n):
+            self.id[i] = i
 
-    def __init__(self):
-        self.leader = {} # maps a member to the group's leader
-        self.group = {} # maps a group leader to the group (which is a set)
+    def connected(self, p,q):
+        return self.id[p] == self.id[q]
 
-    def add(self, a, b):
-        leadera = self.leader.get(a)
-        leaderb = self.leader.get(b)
-        if leadera is not None:
-            if leaderb is not None:
-                if leadera == leaderb: return # nothing to do
-                groupa = self.group[leadera]
-                groupb = self.group[leaderb]
-                if len(groupa) < len(groupb):
-                    a, leadera, groupa, b, leaderb, groupb = b, leaderb, groupb, a, leadera, groupa
-                groupa |= groupb
-                del self.group[leaderb]
-                for k in groupb:
-                    self.leader[k] = leadera
-            else:
-                self.group[leadera].add(b)
-                self.leader[b] = leadera
-        else:
-            if leaderb is not None:
-                self.group[leaderb].add(a)
-                self.leader[a] = leaderb
-            else:
-                self.leader[a] = self.leader[b] = a
-                self.group[a] = set([a, b])
+    def add(self, p, q):
+        pid = self.id[p]
+        qid = self.id[q]
+        for i in xrange(0, len(self.id)):
+            if self.id[i] == pid:
+                self.id[i] = qid
+
+    def show(self):
+        out = ""
+        for i in xrange(0, len(self.id)):
+            out += self.id[i]
+            if i < len(self.id) -1:
+                out += ' '
+        print out
+
+if __name__ == '__main__':
+    disjointSet = DisjointSet(10)
+    #0-5 3-0 6-0 9-0 8-4 7-9
+    disjointSet.add(0,5)
+    disjointSet.add(3,0)
+    disjointSet.add(6,0)
+    disjointSet.add(9,0)
+    disjointSet.add(8,4)
+    disjointSet.add(7,9)
+    disjointSet.show()
+
+    #1-0 6-2 9-8 0-2 8-3 3-4 4-5 7-6 9-2
+
+    disjointSet = DisjointSet(10)
+    disjointSet.add(1,0)
+    disjointSet.add(6,2)
+    disjointSet.add(9,8)
+    disjointSet.add(0,2)
+    disjointSet.add(8,3)
+    disjointSet.add(3,4)
+    disjointSet.add(4,5)
+    disjointSet.add(7,6)
+    disjointSet.add(9,2)
+    disjointSet.show()
