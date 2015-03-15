@@ -1,10 +1,11 @@
 __author__ = 'riccardo'
-"""
-Build a tool which receives a corpus of text, analyses it and reports the top 10 most frequent bigrams,
+# hash table to store the words based on a hash
 
-trigrams, four-grams (i.e. most frequently occurring two, three and four word consecutive combinations).
+def read_lines(input_file):
+    with open(input_file, "r") as in_file:
+        for line in in_file:
+            print line
+        in_file.close()
 
-Extra*: Use a string similarity function to aggregate the “similar” bigrams together: Ex: “the-house” and
-
-“tree-house” will be counted as the same bigram.
-"""
+if __name__ == '__main__':
+    read_lines('./story.txt')
