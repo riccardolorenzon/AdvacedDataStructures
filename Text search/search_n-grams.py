@@ -1,12 +1,11 @@
-import hashlib
 import operator
 
 def upsert_hash_key(gram_type, s, hash_table):
-    hash_key = hashlib.md5(s).hexdigest()
+    hash_key = s
     if hash_key in hash_table:
-        hash_table[hash_key][2] += 1
+        hash_table[hash_key][1] += 1
     else:
-        hash_table[hash_key] = [gram_type, s, 1]
+        hash_table[hash_key] = [gram_type, 1]
 
 def read_lines(lines, hash_table):
     """
@@ -39,13 +38,16 @@ def read_lines(lines, hash_table):
 
 if __name__ == '__main__':
     hash_table = dict()
-    file_input = raw_input('please input the full path name')
-    with open(file_input, "r") as fi:
+    file_input = raw_input('please input the full path name : ')
+    with open(file_input, "r") as in_file:
         lines = in_file.readlines()
         read_lines(lines, hash_table)
-    four_grams = sorted([x[1] for x in hash_table.items() if x[1][0] == 4], key=operator.itemgetter(2), reverse = True)
+    four_grams = sorted([x for x in hash_table.iteritems() if x[1][0] == 4], \
+                        key=operator.itemgetter(1,1), reverse = True)
     print 'first 10 4-grams : {0}'.format(four_grams)
-    three_grams = sorted([x[1] for x in hash_table.items() if x[1][0] == 3], key=operator.itemgetter(2), reverse = True)
+    three_grams = sorted([x for x in hash_table.iteritems() if x[1][0] == 3], \
+                         key=operator.itemgetter(1), reverse = True)
     print 'first 10 3-grams : {0}'.format(three_grams)
-    two_grams = sorted([x[1] for x in hash_table.items() if x[1][0] == 2], key=operator.itemgetter(2), reverse = True)
+    two_grams = sorted([x for x in hash_table.iteritems() if x[1][0] == 2], \
+                       key=lambda(k,v) : v[1], reverse = True)
     print 'first 10 2-grams : {0}'.format(two_grams)
