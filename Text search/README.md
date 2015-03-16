@@ -14,6 +14,10 @@ download the text search folder
 
 put inside the directory and run
 
-    python search_n-grams.py
+    unittests
+    python unittests.py
+
+    n-grams search
+    python search_n_grams.py
 
 provide the full path of your text file
